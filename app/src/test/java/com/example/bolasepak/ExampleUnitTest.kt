@@ -1,4 +1,4 @@
-package com.bolasepak
+package com.example.bolasepak
 
 import org.junit.Test
 

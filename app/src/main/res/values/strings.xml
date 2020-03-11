@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">BolaSepak</string>
+    <string name="step_counter">300 steps today..</string>
+    <string name="vs">VS</string>
+    <string name="home_team">Home Team</string>
+    <string name="away_team">Away Team</string>
+    <string name="home_score">3</string>
+    <string name="away_score">3</string>
+    <string name="match_date">16 Februari 2019</string>
 </resources>
