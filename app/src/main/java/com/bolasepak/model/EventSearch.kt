@@ -3,6 +3,9 @@ package com.bolasepak.model
 import com.google.gson.annotations.SerializedName
 
 data class EventSearch(
+        var stepCounter: String? = null,
+        var stepComment: String? = null,
+
         @SerializedName("idEvent")
         var eventId: String? = null,
 

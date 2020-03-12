@@ -1,25 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.bolasepak.main.MainActivity">
 
-    <TextView
-        android:id="@+id/stepCounter"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/step_counter"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal"
         app:layout_constraintHorizontal_bias="0.083"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="30dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="30dp"
+        app:layout_constraintVertical_bias="0.042"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="20dp"
-        app:layout_constraintVertical_bias="0.042" />
+        android:layout_marginTop="20dp" >
+        <TextView
+            android:id="@+id/stepCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/step_counter" />
+
+        <TextView
+            android:id="@+id/stepComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" steps today" />
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/content"
