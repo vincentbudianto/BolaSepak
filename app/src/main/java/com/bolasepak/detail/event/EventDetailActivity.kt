@@ -14,7 +14,6 @@ import com.bolasepak.util.visible
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_event_detail.*
 import okhttp3.*
-import org.jetbrains.anko.ctx
 import org.jetbrains.anko.find
 import org.jetbrains.anko.support.v4.onRefresh
 import org.json.JSONObject
@@ -89,10 +88,16 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
             skor_detail.text = data[0].scoreHome + "  vs  " + data[0].scoreAway
         }
 
+        home_formation.text = data[0].formationHome
+        away_formation.text = data[0].formationAway
         home_goals.text = data[0].goalHome?.replace(";", "\n")
         away_goals.text = data[0].goalAway?.replace(";", "\n")
         home_shots.text = data[0].shotHome
         away_shots.text = data[0].shotAway
+        home_ycards.text = data[0].ycardsHome?.replace(";", "\n")
+        away_ycards.text = data[0].ycardsAway?.replace(";", "\n")
+        home_rcards.text = data[0].rcardsHome?.replace(";", "\n")
+        away_rcards.text = data[0].rcardsAway?.replace(";", "\n")
         home_gk.text = cleanString(data[0].gkHome)
         away_gk.text = cleanString(data[0].gkAway)
         home_def.text = cleanString(data[0].defHome)
@@ -123,9 +128,9 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
                             var badge = json.getJSONArray("teams").getJSONObject(0).getString("strTeamBadge")
 
                             if (i == 0) {
-                                Picasso.with(ctx).load(badge).into(img_home)
+                                Picasso.get().load(badge).into(img_home)
                             } else {
-                                Picasso.with(ctx).load(badge).into(img_away)
+                                Picasso.get().load(badge).into(img_away)
                             }
                         }
                     }
