@@ -78,31 +78,31 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
         val waktu = SimpleDateFormat("HH:mm")
             .format(convertToGMT(data[0].eventDate, data[0].eventTime))
 
-        tv_date_detail.text = tanggal
-        tv_time_detail.text = waktu
-        tv_home_detail.text = data[0].teamHome
-        tv_away_detail.text = data[0].teamAway
+        date_detail.text = tanggal
+        time_detail.text = waktu
+        home_detail.text = data[0].teamHome
+        away_detail.text = data[0].teamAway
 
         if (data[0].scoreHome.isNullOrEmpty() && data[0].scoreAway.isNullOrEmpty()) {
-            tv_skor_detail.text = "0 vs 0"
+            skor_detail.text = "0 vs 0"
         } else {
-            tv_skor_detail.text = data[0].scoreHome + "  vs  " + data[0].scoreAway
+            skor_detail.text = data[0].scoreHome + "  vs  " + data[0].scoreAway
         }
 
-        tv_home_formation.text = data[0].formationHome
-        tv_away_formation.text = data[0].formationAway
-        tv_home_goals.text = data[0].goalHome?.replace(";", "\n")
-        tv_away_goals.text = data[0].goalAway?.replace(";", "\n")
-        tv_home_shots.text = data[0].shotHome
-        tv_away_shots.text = data[0].shotAway
-        tv_home_gk.text = cleanString(data[0].gkHome)
-        tv_away_gk.text = cleanString(data[0].gkAway)
-        tv_home_def.text = cleanString(data[0].defHome)
-        tv_away_def.text = cleanString(data[0].defAway)
-        tv_home_mid.text = cleanString(data[0].midHome)
-        tv_away_mid.text = cleanString(data[0].midAway)
-        tv_home_forward.text = cleanString(data[0].forwHome)
-        tv_away_forward.text = cleanString(data[0].forwAway)
+        home_goals.text = data[0].goalHome?.replace(";", "\n")
+        away_goals.text = data[0].goalAway?.replace(";", "\n")
+        home_shots.text = data[0].shotHome
+        away_shots.text = data[0].shotAway
+        home_gk.text = cleanString(data[0].gkHome)
+        away_gk.text = cleanString(data[0].gkAway)
+        home_def.text = cleanString(data[0].defHome)
+        away_def.text = cleanString(data[0].defAway)
+        home_mid.text = cleanString(data[0].midHome)
+        away_mid.text = cleanString(data[0].midAway)
+        home_forward.text = cleanString(data[0].forwHome)
+        away_forward.text = cleanString(data[0].forwAway)
+        home_substitute.text = cleanString(data[0].subsHome)
+        away_substitute.text = cleanString(data[0].subsAway)
     }
 
     private fun getBadge(logo: Array<String>) {

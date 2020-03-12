@@ -28,18 +28,18 @@ class EventAdapter(private val context: Context, private val events: List<Event>
 class EventViewHolder(view: View): RecyclerView.ViewHolder(view) {
     fun bindItem(events: Event, listener: (Event) -> Unit){
         if (events.scoreHome.isNullOrEmpty() && events.scoreAway.isNullOrEmpty()) {
-            itemView.tv_skor.text = "VS"
+            itemView.skor.text = "VS"
         } else {
-            itemView.tv_skor.text = events.scoreHome+" VS "+events.scoreAway
+            itemView.skor.text = events.scoreHome+" VS "+events.scoreAway
         }
 
         var date = SimpleDateFormat("EEE, d MMM yyyy")
                 .format(SimpleDateFormat("yyyy-MM-dd")
                         .parse(events.eventDate))
 
-        itemView.tv_date.text = date
-        itemView.tv_home.text = events.teamHome
-        itemView.tv_away.text = events.teamAway
+        itemView.date.text = date
+        itemView.home.text = events.teamHome
+        itemView.away.text = events.teamAway
         itemView.onClick { listener(events) }
     }
 }

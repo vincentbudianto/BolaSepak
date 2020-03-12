@@ -12,8 +12,10 @@ data class EventDetail(
         @SerializedName("strTime")
         var eventTime: String? = null,
 
-        //Home Team
+//        @SerializedName("?") //ubah ? sma val buat get weather
+//        var weather: String? = null,
 
+        //Home Team
         @SerializedName("idHomeTeam")
         var idHome: String? = null,
 
@@ -22,9 +24,6 @@ data class EventDetail(
 
         @SerializedName("intHomeScore")
         var scoreHome: String? = null,
-
-        @SerializedName("strHomeFormation")
-        var formationHome: String? = null,
 
         @SerializedName("strHomeGoalDetails")
         var goalHome: String? = null,
@@ -44,8 +43,10 @@ data class EventDetail(
         @SerializedName("strHomeLineupForward")
         var forwHome: String? = null,
 
-        //Away Team
+        @SerializedName("strHomeLineupSubstitutes")
+        var subsHome: String? = null,
 
+        //Away Team
         @SerializedName("idAwayTeam")
         var idAway: String? = null,
 
@@ -54,9 +55,6 @@ data class EventDetail(
 
         @SerializedName("intAwayScore")
         var scoreAway: String? = null,
-
-        @SerializedName("strAwayFormation")
-        var formationAway: String? = null,
 
         @SerializedName("strAwayGoalDetails")
         var goalAway: String? = null,
@@ -74,5 +72,8 @@ data class EventDetail(
         var midAway: String? = null,
 
         @SerializedName("strAwayLineupForward")
-        var forwAway: String? = null
+        var forwAway: String? = null,
+
+        @SerializedName("strAwayLineupSubstitutes")
+        var subsAway: String? = null
 )
