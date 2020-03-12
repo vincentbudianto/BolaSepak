@@ -31,13 +31,12 @@ class EventFragment : Fragment(), EventView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_event, container, false)
 
         listEvent = view.findViewById(R.id.list_event)
         progressBar = view.findViewById(R.id.progress_bar)
         swipeRefresh = view.findViewById(R.id.swipe_refresh)
-//        setHasOptionsMenu(true)
+        setHasOptionsMenu(true)
         event = arguments?.getString("event")
 
         adapter = EventAdapter(ctx, events){
@@ -69,6 +68,12 @@ class EventFragment : Fragment(), EventView {
 
     override fun hideLoading() {
         progressBar.invisible()
+    }
+
+    override fun showNotFound() {
+        swipeRefresh.isRefreshing = false
+        events.clear()
+        adapter.notifyDataSetChanged()
     }
 
     override fun showEventList(data: List<Event>) {

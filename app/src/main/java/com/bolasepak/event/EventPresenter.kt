@@ -38,7 +38,12 @@ class EventPresenter(private val view: EventView,
 
             uiThread {
                 view.hideLoading()
-                view.showEventList(data.event)
+
+                if (data.event.isNullOrEmpty()){
+                    view.showNotFound()
+                } else {
+                    view.showEventList(data.event)
+                }
             }
         }
     }

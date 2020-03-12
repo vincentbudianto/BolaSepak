@@ -74,9 +74,9 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
         swipeRefresh.isRefreshing = false
 
         val tanggal = SimpleDateFormat("EEE, d MMM yyyy")
-                .format(convertToGMT(data[0].eventDate, data[0].eventTime))
+            .format(convertToGMT(data[0].eventDate, data[0].eventTime))
         val waktu = SimpleDateFormat("HH:mm")
-                .format(convertToGMT(data[0].eventDate, data[0].eventTime))
+            .format(convertToGMT(data[0].eventDate, data[0].eventTime))
 
         tv_date_detail.text = tanggal
         tv_time_detail.text = waktu
@@ -86,7 +86,7 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
         if (data[0].scoreHome.isNullOrEmpty() && data[0].scoreAway.isNullOrEmpty()) {
             tv_skor_detail.text = "0 vs 0"
         } else {
-            tv_skor_detail.text = data[0].scoreHome+"  vs  "+data[0].scoreAway
+            tv_skor_detail.text = data[0].scoreHome + "  vs  " + data[0].scoreAway
         }
 
         tv_home_formation.text = data[0].formationHome

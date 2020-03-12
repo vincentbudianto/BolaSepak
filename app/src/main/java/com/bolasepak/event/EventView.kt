@@ -7,5 +7,7 @@ interface EventView{
 
     fun hideLoading()
 
+    fun showNotFound()
+
     fun showEventList(data: List<Event>)
 }

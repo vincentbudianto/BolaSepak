@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">BolaSepak</string>
 
-    <!--String di item event-->
+    <!--String di homepage-->
+    <string name="step_counter">3000 steps today</string>
     <string name="tanggal">Tanggal</string>
     <string name="team_a">Team A</string>
     <string name="_0_vs_0">0 VS 0</string>
