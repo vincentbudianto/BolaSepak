@@ -109,7 +109,7 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailView {
                         var json = JSONObject(res)
                         var badge = json.getJSONArray("teams").getJSONObject(0).getString("strTeamBadge")
 
-                        Picasso.with(ctx).load(badge).into(team_logo)
+                        Picasso.get().load(badge).into(team_logo)
                     }
                 }
             }

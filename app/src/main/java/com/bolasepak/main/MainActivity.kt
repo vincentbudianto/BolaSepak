@@ -14,7 +14,6 @@ import com.bolasepak.event.EventFragment
 import com.bolasepak.listener.StepListener
 import com.bolasepak.util.StepDetector
 import com.bolasepak.R
-import com.bolasepak.event.EventFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), SensorEventListener, StepListener {

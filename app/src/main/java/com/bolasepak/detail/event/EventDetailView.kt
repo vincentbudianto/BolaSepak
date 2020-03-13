@@ -2,7 +2,6 @@ package com.bolasepak.detail.event
 
 import com.bolasepak.model.AllTeam
 import com.bolasepak.model.EventDetail
-import com.bolasepak.model.Weather
 
 interface EventDetailView{
     fun showLoading()

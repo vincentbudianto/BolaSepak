@@ -16,6 +16,7 @@ import com.bolasepak.model.Event
 import com.bolasepak.detail.event.EventDetailActivity
 import com.bolasepak.detail.team.TeamMatchEventView
 import com.bolasepak.detail.team.TeamMatchPresenter
+import com.bolasepak.model.AllTeam
 import com.bolasepak.model.TeamMatchEvent
 import com.bolasepak.util.invisible
 import com.bolasepak.util.visible
@@ -31,6 +32,7 @@ class TeamMatchFragmentBefore(val teamID: String?) : Fragment(), TeamMatchEventV
     private lateinit var adapter: TeamMatchAdapter
     private lateinit var searchView: SearchView
     private var events: MutableList<TeamMatchEvent> = mutableListOf()
+    private var teams: MutableList<AllTeam> = mutableListOf()
     var event: String? = "eventspastleague"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -44,11 +46,12 @@ class TeamMatchFragmentBefore(val teamID: String?) : Fragment(), TeamMatchEventV
         setHasOptionsMenu(true)
         event = arguments?.getString("event")
 
-        adapter = TeamMatchAdapter(ctx, events){
+        adapter = TeamMatchAdapter(ctx, events, teams){
             startActivity<EventDetailActivity>(
                     "id" to "${it.eventId}",
                     "idhome" to "${it.idHome}",
-                    "idaway" to "${it.idAway}"
+                    "idaway" to "${it.idAway}",
+                    "location" to "${teams[it.indexTeam!!.toInt()].teamStadiumLoc}"
             )
         }
 
@@ -81,12 +84,14 @@ class TeamMatchFragmentBefore(val teamID: String?) : Fragment(), TeamMatchEventV
         adapter.notifyDataSetChanged()
     }
 
-    override fun showEventList(data: List<TeamMatchEvent>?) {
+    override fun showEventList(data: List<TeamMatchEvent>?, data2: List<AllTeam>) {
         swipeRefresh.isRefreshing = false
         events.clear()
         if (data != null) {
             events.addAll(data)
         }
+        teams.addAll(data2)
+
         adapter.notifyDataSetChanged()
     }
 
