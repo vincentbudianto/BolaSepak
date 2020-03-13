@@ -16,18 +16,17 @@ class EventDetailPresenter(private val view: EventDetailView,
         view.showLoading()
 
         doAsync {
-            val data = gson.fromJson(apiRepository
+            val data1 = gson.fromJson(apiRepository
                     .request(TheSportDBApi.getEventDetail(eventId)),
                     EventDetailResponse::class.java)
 
-            val team = gson.fromJson(apiRepository
+            val data2 = gson.fromJson(apiRepository
                 .request(TheSportDBApi.getAllTeam()),
                 AllTeamResponse::class.java)
 
-
             uiThread {
                 view.hideLoading()
-                view.showEventDetail(data.events)
+                view.showEventDetail(data1.events, data2.teams)
             }
         }
     }

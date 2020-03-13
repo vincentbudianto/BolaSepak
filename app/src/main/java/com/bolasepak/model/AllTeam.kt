@@ -11,5 +11,14 @@ data class AllTeam(
     var teamName: String? = null,
 
     @SerializedName("strTeamBadge")
-    var teamBadge: String? = null
+    var teamBadge: String? = null,
+
+    @SerializedName("strStadium")
+    var teamStadium: String? = null,
+
+    @SerializedName("strStadiumThumb")
+    var teamStadiumImg: String? = null,
+
+    @SerializedName("strStadiumLocation")
+    var teamStadiumLoc: String? = null
 )

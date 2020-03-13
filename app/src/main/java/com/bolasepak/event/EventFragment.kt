@@ -45,7 +45,8 @@ class EventFragment : Fragment(), EventView {
             startActivity<EventDetailActivity>(
                     "id" to "${it.eventId}",
                     "idhome" to "${it.idHome}",
-                    "idaway" to "${it.idAway}"
+                    "idaway" to "${it.idAway}",
+                    "location" to "${teams[it.indexTeam!!.toInt()].teamStadiumLoc}"
             )
         }
 

@@ -34,6 +34,8 @@ class EventViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
         val home = teams.indexOfFirst { it.teamId == homeId }
 
+        events.indexTeam = home.toString()
+
         val away = teams.indexOfFirst { it.teamId == awayId }
 
         if (events.scoreHome.isNullOrEmpty() && events.scoreAway.isNullOrEmpty()) {

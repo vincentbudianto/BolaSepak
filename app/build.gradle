@@ -14,8 +14,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        buildConfigField "String", "BASE_URL", "\"https://www.thesportsdb.com/\""
+        buildConfigField "String", "TSDB_URL", "\"https://www.thesportsdb.com/\""
         buildConfigField "String", "TSDB_API_KEY", "\"1\""
+        buildConfigField "String", "OW_URL", "\"http://api.openweathermap.org/data/2.5/\""
+        buildConfigField "String", "OW_API_KEY", "\"f1d7c47c5ff98b60c892eb7bc88d71cb\""
     }
     buildTypes {
         release {
