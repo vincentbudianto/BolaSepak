@@ -20,7 +20,7 @@ class SubscribedPresenter(private val view: SubscribedView,
                     .request(TheSportDBApi.getEvent(league, event)),
                     EventResponse::class.java)
             val data2 = gson.fromJson(apiRepository
-                .request(TheSportDBApi.getAllTeam("4328")),
+                .request(TheSportDBApi.getAllTeam()),
                 AllTeamResponse::class.java)
 
             uiThread {
@@ -38,7 +38,7 @@ class SubscribedPresenter(private val view: SubscribedView,
                     .request(TheSportDBApi.getEventbyName(name)),
                     EventSearchResponse::class.java)
             val data2 = gson.fromJson(apiRepository
-                .request(TheSportDBApi.getAllTeam("4328")),
+                .request(TheSportDBApi.getAllTeam()),
                 AllTeamResponse::class.java)
 
             uiThread {

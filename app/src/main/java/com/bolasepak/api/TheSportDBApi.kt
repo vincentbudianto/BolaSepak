@@ -11,8 +11,8 @@ object TheSportDBApi {
         return BuildConfig.TSDB_URL + "api/v1/json/${BuildConfig.TSDB_API_KEY}" + "/all_leagues.php"
     }
 
-    fun getAllTeam(teamId: String?): String{
-        return BuildConfig.TSDB_URL + "api/v1/json/${BuildConfig.TSDB_API_KEY}" + "/lookup_all_teams.php?id=" + teamId
+    fun getAllTeam(): String{
+        return BuildConfig.TSDB_URL + "api/v1/json/${BuildConfig.TSDB_API_KEY}" + "/lookup_all_teams.php?id=4328"
     }
 
     fun getEventDetail(eventId: String?): String{
