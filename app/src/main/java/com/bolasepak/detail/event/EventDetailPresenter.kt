@@ -21,7 +21,7 @@ class EventDetailPresenter(private val view: EventDetailView,
                     EventDetailResponse::class.java)
 
             val data2 = gson.fromJson(apiRepository
-                .request(TheSportDBApi.getAllTeam()),
+                .request(TheSportDBApi.getAllTeam("4328")),
                 AllTeamResponse::class.java)
 
             uiThread {

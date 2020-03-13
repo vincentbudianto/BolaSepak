@@ -14,7 +14,8 @@ import com.bolasepak.event.EventFragment
 import com.bolasepak.listener.StepListener
 import com.bolasepak.util.StepDetector
 import com.bolasepak.R
-import com.bolasepak.event.EventFragment
+import com.bolasepak.subscribed.SubscribedFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), SensorEventListener, StepListener {
@@ -23,7 +24,32 @@ class MainActivity : AppCompatActivity(), SensorEventListener, StepListener {
     private var steps: Int = 0
     var sensorManager: SensorManager? = null
 
-    private fun addFragment(fragment: EventFragment) {
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.navigation_previous -> {
+                val fragment = EventFragment.newInstance("eventspastleague")
+                addEventFragment(fragment)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_next -> {
+                val fragment = SubscribedFragment.newInstance("eventsnextleague")
+                addSubscribedFragment(fragment)
+                return@OnNavigationItemSelectedListener true
+            }
+        }
+
+        false
+    }
+
+    private fun addEventFragment(fragment: EventFragment) {
+        supportFragmentManager
+                .beginTransaction()
+                .setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
+                .replace(R.id.content, fragment, fragment.javaClass.simpleName)
+                .commit()
+    }
+
+    private fun addSubscribedFragment(fragment: SubscribedFragment) {
         supportFragmentManager
                 .beginTransaction()
                 .setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
@@ -34,12 +60,13 @@ class MainActivity : AppCompatActivity(), SensorEventListener, StepListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         stepDetector = StepDetector()
         stepDetector!!.registerListener(this)
 
         val fragment = EventFragment.newInstance("eventspastleague")
-        addFragment(fragment)
+        addEventFragment(fragment)
     }
 
     override fun onResume() {
@@ -69,5 +96,4 @@ class MainActivity : AppCompatActivity(), SensorEventListener, StepListener {
         steps++
         stepCounter.text = steps.toString()
     }
-
 }

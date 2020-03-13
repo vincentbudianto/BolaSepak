@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName
 data class Event(
         var indexTeam: String? = null,
 
+        @SerializedName("idLeague")
+        var leagueId: String? = null,
+
         @SerializedName("idEvent")
         var eventId: String? = null,
 
