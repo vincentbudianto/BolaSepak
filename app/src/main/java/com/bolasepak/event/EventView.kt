@@ -1,5 +1,6 @@
 package com.bolasepak.event
 
+import com.bolasepak.model.AllTeam
 import com.bolasepak.model.Event
 
 interface EventView{
@@ -9,5 +10,5 @@ interface EventView{
 
     fun showNotFound()
 
-    fun showEventList(data: List<Event>)
+    fun showEventList(data1: List<Event>, data2: List<AllTeam>)
 }

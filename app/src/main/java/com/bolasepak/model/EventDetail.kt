@@ -25,11 +25,20 @@ data class EventDetail(
         @SerializedName("intHomeScore")
         var scoreHome: String? = null,
 
+        @SerializedName("strHomeFormation")
+        var formationHome: String? = null,
+
         @SerializedName("strHomeGoalDetails")
         var goalHome: String? = null,
 
         @SerializedName("intHomeShots")
         var shotHome: String? = null,
+
+        @SerializedName("strHomeYellowCards")
+        var ycardsHome: String? = null,
+
+        @SerializedName("strHomeRedCards")
+        var rcardsHome: String? = null,
 
         @SerializedName("strHomeLineupGoalkeeper")
         var gkHome: String? = null,
@@ -56,11 +65,20 @@ data class EventDetail(
         @SerializedName("intAwayScore")
         var scoreAway: String? = null,
 
+        @SerializedName("strAwayFormation")
+        var formationAway: String? = null,
+
         @SerializedName("strAwayGoalDetails")
         var goalAway: String? = null,
 
         @SerializedName("intAwayShots")
         var shotAway: String? = null,
+
+        @SerializedName("strAwayYellowCards")
+        var ycardsAway: String? = null,
+
+        @SerializedName("strAwayRedCards")
+        var rcardsAway: String? = null,
 
         @SerializedName("strAwayLineupGoalkeeper")
         var gkAway: String? = null,

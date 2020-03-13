@@ -3,6 +3,7 @@ package com.bolasepak.event
 import com.google.gson.Gson
 import com.bolasepak.api.ApiRepository
 import com.bolasepak.api.TheSportDBApi
+import com.bolasepak.model.AllTeamResponse
 import com.bolasepak.model.EventResponse
 import com.bolasepak.model.EventSearchResponse
 import org.jetbrains.anko.doAsync
@@ -15,14 +16,16 @@ class EventPresenter(private val view: EventView,
         view.showLoading()
 
         doAsync {
-            val data = gson.fromJson(apiRepository
+            val data1 = gson.fromJson(apiRepository
                     .request(TheSportDBApi.getEvent(league, event)),
-                    EventResponse::class.java
-            )
+                    EventResponse::class.java)
+            val data2 = gson.fromJson(apiRepository
+                .request(TheSportDBApi.getAllTeam()),
+                AllTeamResponse::class.java)
 
             uiThread {
                 view.hideLoading()
-                view.showEventList(data.events)
+                view.showEventList(data1.events, data2.teams)
             }
         }
     }
@@ -31,18 +34,20 @@ class EventPresenter(private val view: EventView,
         view.showLoading()
 
         doAsync {
-            val data = gson.fromJson(apiRepository
+            val data1 = gson.fromJson(apiRepository
                     .request(TheSportDBApi.getEventbyName(name)),
-                    EventSearchResponse::class.java
-            )
+                    EventSearchResponse::class.java)
+            val data2 = gson.fromJson(apiRepository
+                .request(TheSportDBApi.getAllTeam()),
+                AllTeamResponse::class.java)
 
             uiThread {
                 view.hideLoading()
 
-                if (data.event.isNullOrEmpty()){
+                if (data1.event.isNullOrEmpty()){
                     view.showNotFound()
                 } else {
-                    view.showEventList(data.event)
+                    view.showEventList(data1.event, data2.teams)
                 }
             }
         }

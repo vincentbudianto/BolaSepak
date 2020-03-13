@@ -14,6 +14,7 @@ import com.bolasepak.api.ApiRepository
 import com.bolasepak.model.Event
 import com.bolasepak.detail.event.EventDetailActivity
 import com.bolasepak.model.TeamMatchEvent
+import com.bolasepak.model.AllTeam
 import com.bolasepak.util.invisible
 import com.bolasepak.util.visible
 import org.jetbrains.anko.support.v4.ctx
@@ -28,6 +29,7 @@ class EventFragment : Fragment(), EventView {
     private lateinit var adapter: EventAdapter
     private lateinit var searchView: SearchView
     private var events: MutableList<Event> = mutableListOf()
+    private var teams: MutableList<AllTeam> = mutableListOf()
     var event: String? = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -40,11 +42,12 @@ class EventFragment : Fragment(), EventView {
         setHasOptionsMenu(true)
         event = arguments?.getString("event")
 
-        adapter = EventAdapter(ctx, events){
+        adapter = EventAdapter(ctx, events, teams){
             startActivity<EventDetailActivity>(
                     "id" to "${it.eventId}",
                     "idhome" to "${it.idHome}",
-                    "idaway" to "${it.idAway}"
+                    "idaway" to "${it.idAway}",
+                    "location" to "${teams[it.indexTeam!!.toInt()].teamStadiumLoc}"
             )
         }
 
@@ -77,10 +80,11 @@ class EventFragment : Fragment(), EventView {
         adapter.notifyDataSetChanged()
     }
 
-    override fun showEventList(data: List<Event>) {
+    override fun showEventList(data1: List<Event>, data2: List<AllTeam>) {
         swipeRefresh.isRefreshing = false
         events.clear()
-        events.addAll(data)
+        events.addAll(data1)
+        teams.addAll(data2)
         adapter.notifyDataSetChanged()
     }
 

@@ -14,8 +14,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        buildConfigField "String", "BASE_URL", "\"https://www.thesportsdb.com/\""
+        buildConfigField "String", "TSDB_URL", "\"https://www.thesportsdb.com/\""
         buildConfigField "String", "TSDB_API_KEY", "\"1\""
+        buildConfigField "String", "OW_URL", "\"http://api.openweathermap.org/data/2.5/\""
+        buildConfigField "String", "OW_API_KEY", "\"f1d7c47c5ff98b60c892eb7bc88d71cb\""
     }
     buildTypes {
         release {
@@ -36,7 +38,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
-    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation "org.jetbrains.anko:anko:$anko_version"
     implementation 'com.squareup.okhttp3:okhttp:3.8.1'
