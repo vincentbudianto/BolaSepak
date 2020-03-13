@@ -31,46 +31,46 @@ API:
 
 ### Homescreen
 
-![](screenshots/homescreen1.png)
+![](screenshots/homescreen1.jpg)
 <br>
 <br>
-![](screenshots/homescreen2.png)
+![](screenshots/homescreen2.jpg)
 <br>
 <br>
 
 ### Search
 
-![](screenshots/search1.png)
+![](screenshots/search1.jpg)
 <br>
 <br>
-![](screenshots/search2.png)
+![](screenshots/search2.jpg)
 <br>
 <br>
 
 ### Match Detail
 
-![](screenshots/matchDetail1.png)
+![](screenshots/matchDetail1.jpg)
 <br>
 <br>
-![](screenshots/matchDetail2.png)
+![](screenshots/matchDetail2.jpg)
 <br>
 <br>
-![](screenshots/matchDetail3.png)
+![](screenshots/matchDetail3.jpg)
 <br>
 <br>
 
 ### Team Detail
 
-![](screenshots/teamDetail1.png)
+![](screenshots/teamDetail1.jpg)
 <br>
 <br>
-![](screenshots/teamDetail2.png)
+![](screenshots/teamDetail2.jpg)
 <br>
 <br>
-![](screenshots/teamDetail3.png)
+![](screenshots/teamDetail3.jpg)
 <br>
 <br>
-![](screenshots/teamDetail4.png)
+![](screenshots/teamDetail4.jpg)
 <br>
 <br>
 
