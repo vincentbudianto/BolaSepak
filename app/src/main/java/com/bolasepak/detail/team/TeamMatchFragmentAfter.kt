@@ -2,6 +2,7 @@ package com.bolasepak.event
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.*
 import android.widget.ProgressBar
 import android.widget.SearchView
@@ -13,36 +14,37 @@ import com.bolasepak.R
 import com.bolasepak.api.ApiRepository
 import com.bolasepak.model.Event
 import com.bolasepak.detail.event.EventDetailActivity
+import com.bolasepak.detail.team.TeamMatchEventView
+import com.bolasepak.detail.team.TeamMatchPresenter
 import com.bolasepak.model.TeamMatchEvent
-import com.bolasepak.model.AllTeam
 import com.bolasepak.util.invisible
 import com.bolasepak.util.visible
 import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.startActivity
 
-class EventFragment : Fragment(), EventView {
+class TeamMatchFragmentAfter(val teamID: String?) : Fragment(), TeamMatchEventView {
     private lateinit var listEvent: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
-    private lateinit var presenter: EventPresenter
-    private lateinit var adapter: EventAdapter
+    private lateinit var eventPresenter: TeamMatchPresenter
+    private lateinit var adapter: TeamMatchAdapter
     private lateinit var searchView: SearchView
-    private var events: MutableList<Event> = mutableListOf()
-    private var teams: MutableList<AllTeam> = mutableListOf()
-    var event: String? = ""
+    private var events: MutableList<TeamMatchEvent> = mutableListOf()
+    var event: String? = "eventspastleague"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_event, container, false)
 
+        Log.d("Fragment Team ID", teamID)
         listEvent = view.findViewById(R.id.list_event)
         progressBar = view.findViewById(R.id.progress_bar)
         swipeRefresh = view.findViewById(R.id.swipe_refresh)
         setHasOptionsMenu(true)
         event = arguments?.getString("event")
 
-        adapter = EventAdapter(ctx, events, teams){
+        adapter = TeamMatchAdapter(ctx, events){
             startActivity<EventDetailActivity>(
                     "id" to "${it.eventId}",
                     "idhome" to "${it.idHome}",
@@ -55,11 +57,11 @@ class EventFragment : Fragment(), EventView {
         val request = ApiRepository()
         val gson = Gson()
 
-        presenter = EventPresenter(this, request, gson)
-        presenter.getEventList("4328", event)
+        eventPresenter = TeamMatchPresenter(this, request, gson, "sesudah")
+        eventPresenter.getTeamMatches(teamID)
 
         swipeRefresh.onRefresh {
-            presenter.getEventList("4328", event)
+            eventPresenter.getTeamMatches(teamID)
         }
 
         return view
@@ -79,21 +81,22 @@ class EventFragment : Fragment(), EventView {
         adapter.notifyDataSetChanged()
     }
 
-    override fun showEventList(data1: List<Event>, data2: List<AllTeam>) {
+    override fun showEventList(data: List<TeamMatchEvent>?) {
         swipeRefresh.isRefreshing = false
         events.clear()
-        events.addAll(data1)
-        teams.addAll(data2)
+        if (data != null) {
+            events.addAll(data)
+        }
         adapter.notifyDataSetChanged()
     }
 
     companion object {
-        fun newInstance(event: String?): EventFragment {
-            val fragment = EventFragment()
-            val args = Bundle()
-
-            args.putString("event",event)
-            fragment.arguments = args
+        fun newInstance(teamID: String): TeamMatchFragmentAfter {
+            val fragment = TeamMatchFragmentAfter(teamID)
+//            val args = Bundle()
+//
+//            args.putString("teamID", teamID)
+//            fragment.arguments = args
 
             return fragment
         }
@@ -106,14 +109,14 @@ class EventFragment : Fragment(), EventView {
         val searchItem = menu?.findItem(R.id.action_search)
 
         searchView = searchItem?.actionView as SearchView
-        searchView.queryHint = "Team Name"
+        searchView.queryHint = "Search Match"
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (TextUtils.isEmpty(newText)) {
-                    presenter.getEventList("4328", event)
+                    eventPresenter.getTeamMatches(teamID)
                 } else {
-                    presenter.getEventSearch(newText?.replace(" ", "_"))
+                    eventPresenter.getTeamMatches(newText?.replace(" ", "_"))
                 }
 
                 return true

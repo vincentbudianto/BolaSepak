@@ -18,4 +18,8 @@
     <string name="midfielder">Midfielders</string>
     <string name="forward">Forwards</string>
     <string name="substitute">Substitutes</string>
+
+    <!--String di halaman team detail-->
+    <string name="mendatang">Mendatang</string>
+    <string name="sebelum">SEBELUM</string>
 </resources>
