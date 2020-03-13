@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.bolasepak.api.ApiRepository
 import com.bolasepak.api.TheSportDBApi
 import com.bolasepak.event.EventView
+import com.bolasepak.model.AllTeamResponse
 import com.bolasepak.model.EventResponse
 import com.bolasepak.model.TeamDetailResponse
 import com.bolasepak.model.TeamMatchEventResponse
@@ -55,6 +56,9 @@ class TeamMatchPresenter(private val view: TeamMatchEventView,
                         .request(TheSportDBApi.getLastEventbyID(teamId)),
                     TeamMatchEventResponse::class.java
                 )
+                val data2 = gson.fromJson(apiRepository
+                    .request(TheSportDBApi.getAllTeam()),
+                    AllTeamResponse::class.java)
 
                 uiThread {
                     view.hideLoading()
@@ -63,7 +67,7 @@ class TeamMatchPresenter(private val view: TeamMatchEventView,
                     } else {
                         Log.d("TEAM MATCH", "NULL BRO")
                     }
-                    view.showEventList(data.results)
+                    view.showEventList(data.results, data2.teams)
                 }
             }
         }
@@ -75,6 +79,9 @@ class TeamMatchPresenter(private val view: TeamMatchEventView,
                         .request(TheSportDBApi.getNextEventbyID(teamId)),
                     TeamMatchEventResponse::class.java
                 )
+                val data2 = gson.fromJson(apiRepository
+                    .request(TheSportDBApi.getAllTeam()),
+                    AllTeamResponse::class.java)
 
                 uiThread {
                     view.hideLoading()
@@ -83,7 +90,7 @@ class TeamMatchPresenter(private val view: TeamMatchEventView,
                     } else {
                         Log.d("TEAM MATCH", "NULL BRO")
                     }
-                    view.showEventList(data.events)
+                    view.showEventList(data.events, data2.teams)
                 }
             }
         }
