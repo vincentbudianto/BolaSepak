@@ -34,7 +34,7 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_team_detail)
 
-        supportActionBar?.title = "Match Detail"
+        supportActionBar?.title = "Team Detail"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         progressBar = find(R.id.progress_bar_detail)
