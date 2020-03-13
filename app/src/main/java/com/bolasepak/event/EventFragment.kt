@@ -1,5 +1,7 @@
 package com.bolasepak.event
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.*
@@ -13,7 +15,6 @@ import com.bolasepak.R
 import com.bolasepak.api.ApiRepository
 import com.bolasepak.model.Event
 import com.bolasepak.detail.event.EventDetailActivity
-import com.bolasepak.model.TeamMatchEvent
 import com.bolasepak.model.AllTeam
 import com.bolasepak.util.invisible
 import com.bolasepak.util.visible
@@ -21,7 +22,7 @@ import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.startActivity
 
-class EventFragment : Fragment(), EventView {
+class EventFragment(context: Context) : Fragment(), EventView {
     private lateinit var listEvent: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
@@ -30,6 +31,7 @@ class EventFragment : Fragment(), EventView {
     private lateinit var searchView: SearchView
     private var events: MutableList<Event> = mutableListOf()
     private var teams: MutableList<AllTeam> = mutableListOf()
+    private val ctn = context
     var event: String? = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -55,11 +57,19 @@ class EventFragment : Fragment(), EventView {
         val request = ApiRepository()
         val gson = Gson()
 
+        val cManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = cManager.activeNetwork
+
         presenter = EventPresenter(this, request, gson)
-        presenter.getEventList("4328", event)
+        if (activeNetwork != null){
+            presenter.getEventList("4328", event, ctn)
+        }
+        else{
+            presenter.getEventListDB(ctn)
+        }
 
         swipeRefresh.onRefresh {
-            presenter.getEventList("4328", event)
+            presenter.getEventList("4328", event, ctn)
         }
 
         return view
@@ -88,8 +98,8 @@ class EventFragment : Fragment(), EventView {
     }
 
     companion object {
-        fun newInstance(event: String?): EventFragment {
-            val fragment = EventFragment()
+        fun newInstance(event: String?, context: Context): EventFragment {
+            val fragment = EventFragment(context)
             val args = Bundle()
 
             args.putString("event",event)
@@ -111,11 +121,10 @@ class EventFragment : Fragment(), EventView {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (TextUtils.isEmpty(newText)) {
-                    presenter.getEventList("4328", event)
+                    presenter.getEventList("4328", event, ctn)
                 } else {
                     presenter.getEventSearch(newText?.replace(" ", "_"))
                 }
-
                 return true
             }
 

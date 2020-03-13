@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener, StepListener {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_previous -> {
-                val fragment = EventFragment.newInstance("eventspastleague")
+                val fragment = EventFragment.newInstance("eventspastleague", applicationContext)
                 addEventFragment(fragment)
                 return@OnNavigationItemSelectedListener true
             }
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener, StepListener {
         stepDetector = StepDetector()
         stepDetector!!.registerListener(this)
 
-        val fragment = EventFragment.newInstance("eventspastleague")
+        val fragment = EventFragment.newInstance("eventspastleague", applicationContext)
         addEventFragment(fragment)
     }
 
