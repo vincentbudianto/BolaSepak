@@ -16,6 +16,7 @@ import com.bolasepak.model.Event
 import com.bolasepak.detail.event.EventDetailActivity
 import com.bolasepak.detail.team.TeamMatchEventView
 import com.bolasepak.detail.team.TeamMatchPresenter
+import com.bolasepak.model.AllTeam
 import com.bolasepak.model.TeamMatchEvent
 import com.bolasepak.util.invisible
 import com.bolasepak.util.visible
@@ -23,7 +24,7 @@ import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.startActivity
 
-class TeamMatchFragmentAfter(val teamID: String?) : Fragment(), TeamMatchEventView {
+class TeamMatchFragmentAfter() : Fragment(), TeamMatchEventView {
     private lateinit var listEvent: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
@@ -31,7 +32,9 @@ class TeamMatchFragmentAfter(val teamID: String?) : Fragment(), TeamMatchEventVi
     private lateinit var adapter: TeamMatchAdapter
     private lateinit var searchView: SearchView
     private var events: MutableList<TeamMatchEvent> = mutableListOf()
+    private var teams: MutableList<AllTeam> = mutableListOf()
     var event: String? = "eventspastleague"
+    var teamID: String? = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -44,11 +47,14 @@ class TeamMatchFragmentAfter(val teamID: String?) : Fragment(), TeamMatchEventVi
         setHasOptionsMenu(true)
         event = arguments?.getString("event")
 
-        adapter = TeamMatchAdapter(ctx, events){
+
+        adapter = TeamMatchAdapter(ctx, events, teams){
             startActivity<EventDetailActivity>(
                     "id" to "${it.eventId}",
                     "idhome" to "${it.idHome}",
-                    "idaway" to "${it.idAway}"
+                    "idaway" to "${it.idAway}",
+                    "location" to "${teams[it.indexTeam!!.toInt()].teamStadiumLoc}"
+
             )
         }
 
@@ -81,22 +87,23 @@ class TeamMatchFragmentAfter(val teamID: String?) : Fragment(), TeamMatchEventVi
         adapter.notifyDataSetChanged()
     }
 
-    override fun showEventList(data: List<TeamMatchEvent>?) {
+    override fun showEventList(data: List<TeamMatchEvent>?, data2: List<AllTeam>) {
         swipeRefresh.isRefreshing = false
         events.clear()
         if (data != null) {
             events.addAll(data)
         }
+        teams.addAll(data2)
         adapter.notifyDataSetChanged()
     }
 
     companion object {
         fun newInstance(teamID: String): TeamMatchFragmentAfter {
-            val fragment = TeamMatchFragmentAfter(teamID)
-//            val args = Bundle()
-//
-//            args.putString("teamID", teamID)
-//            fragment.arguments = args
+            val fragment = TeamMatchFragmentAfter()
+            val args = Bundle()
+
+            args.putString("teamID", teamID)
+            fragment.arguments = args
 
             return fragment
         }

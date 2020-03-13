@@ -21,8 +21,9 @@ class EventPresenter(private val view: EventView,
         view.showLoading()
 
         doAsync {
+
             val res1 = apiRepository.request(TheSportDBApi.getEvent(league, event))
-            val res2 = apiRepository.request(TheSportDBApi.getAllTeam("4328"))
+            val res2 = apiRepository.request(TheSportDBApi.getAllTeam())
             addToDB(context, res1, res2)
             val data1 = gson.fromJson(res1, EventResponse::class.java)
             val data2 = gson.fromJson(res2, AllTeamResponse::class.java)
@@ -60,7 +61,7 @@ class EventPresenter(private val view: EventView,
                     EventSearchResponse::class.java)
 
             val data2 = gson.fromJson(apiRepository
-                .request(TheSportDBApi.getAllTeam("4328")),
+                .request(TheSportDBApi.getAllTeam()),
                 AllTeamResponse::class.java)
 
             uiThread {
