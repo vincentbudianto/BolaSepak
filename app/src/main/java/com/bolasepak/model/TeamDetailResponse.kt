@@ -1,5 +1,5 @@
 package com.bolasepak.model
 
 data class TeamDetailResponse(
-        val event: List<TeamDetail>
+        val teams: List<TeamDetail>
 )

@@ -33,7 +33,7 @@ class EventViewHolder(view: View): RecyclerView.ViewHolder(view) {
             itemView.skor.text = events.scoreHome+" VS "+events.scoreAway
         }
 
-        var date = SimpleDateFormat("EEE, d MMM yyyy")
+        var  date = SimpleDateFormat("EEE, d MMM yyyy")
                 .format(SimpleDateFormat("yyyy-MM-dd")
                         .parse(events.eventDate))
 
