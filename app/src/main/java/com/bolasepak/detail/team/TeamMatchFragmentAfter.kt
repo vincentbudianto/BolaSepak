@@ -24,7 +24,7 @@ import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.startActivity
 
-class TeamMatchFragmentAfter() : Fragment(), TeamMatchEventView {
+class TeamMatchFragmentAfter(val teamID: String) : Fragment(), TeamMatchEventView {
     private lateinit var listEvent: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
@@ -34,12 +34,13 @@ class TeamMatchFragmentAfter() : Fragment(), TeamMatchEventView {
     private var events: MutableList<TeamMatchEvent> = mutableListOf()
     private var teams: MutableList<AllTeam> = mutableListOf()
     var event: String? = "eventspastleague"
-    var teamID: String? = ""
+//    var teamID: String? = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_event, container, false)
 
+        Log.d("AWAS AJA TEAM ID", "bawahnya team id")
         Log.d("Fragment Team ID", teamID)
         listEvent = view.findViewById(R.id.list_event)
         progressBar = view.findViewById(R.id.progress_bar)
@@ -99,11 +100,11 @@ class TeamMatchFragmentAfter() : Fragment(), TeamMatchEventView {
 
     companion object {
         fun newInstance(teamID: String): TeamMatchFragmentAfter {
-            val fragment = TeamMatchFragmentAfter()
-            val args = Bundle()
-
-            args.putString("teamID", teamID)
-            fragment.arguments = args
+            val fragment = TeamMatchFragmentAfter(teamID)
+//            val args = Bundle()
+//
+//            args.putString("teamID", teamID)
+//            fragment.setArguments(args)
 
             return fragment
         }
