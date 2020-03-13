@@ -1,4 +1,4 @@
-package com.bolasepak.event
+package com.bolasepak.subscribed
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -13,26 +13,29 @@ import kotlinx.android.synthetic.main.item_event.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import java.text.SimpleDateFormat
 
-class EventAdapter(private val context: Context, private val events: List<Event>, private val teams: List<AllTeam>, private val listener: (Event) -> Unit)
-    : RecyclerView.Adapter<EventViewHolder>(){
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
-        return EventViewHolder(LayoutInflater.from(context).inflate(R.layout.item_event, parent, false))
+class SubscribedAdapter(private val context: Context, private val events: List<Event>, private val teams: List<AllTeam>, private val listener: (Event) -> Unit)
+    : RecyclerView.Adapter<SubscribedViewHolder>(){
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubscribedViewHolder {
+        return SubscribedViewHolder(LayoutInflater.from(context).inflate(R.layout.item_event, parent, false))
     }
 
     override fun getItemCount(): Int = events.size
 
-    override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SubscribedViewHolder, position: Int) {
         holder.bindItem(events[position], teams, listener)
     }
 
 }
 
-class EventViewHolder(view: View): RecyclerView.ViewHolder(view) {
+class SubscribedViewHolder(view: View): RecyclerView.ViewHolder(view) {
     fun bindItem(events: Event, teams: List<AllTeam>, listener: (Event) -> Unit){
         val homeId = events.idHome
         val awayId = events.idAway
 
         val home = teams.indexOfFirst { it.teamId == homeId }
+
+        events.indexTeam = home.toString()
+
         val away = teams.indexOfFirst { it.teamId == awayId }
 
         if (events.scoreHome.isNullOrEmpty() && events.scoreAway.isNullOrEmpty()) {

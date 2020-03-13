@@ -1,4 +1,4 @@
-package com.bolasepak.event
+package com.bolasepak.subscribed
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -20,12 +20,12 @@ import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.startActivity
 
-class EventFragment : Fragment(), EventView {
+class SubscribedFragment : Fragment(), SubscribedView {
     private lateinit var listEvent: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
-    private lateinit var presenter: EventPresenter
-    private lateinit var adapter: EventAdapter
+    private lateinit var presenter: SubscribedPresenter
+    private lateinit var adapter: SubscribedAdapter
     private lateinit var searchView: SearchView
     private var events: MutableList<Event> = mutableListOf()
     private var teams: MutableList<AllTeam> = mutableListOf()
@@ -41,11 +41,12 @@ class EventFragment : Fragment(), EventView {
         setHasOptionsMenu(true)
         event = arguments?.getString("event")
 
-        adapter = EventAdapter(ctx, events, teams){
+        adapter = SubscribedAdapter(ctx, events, teams){
             startActivity<EventDetailActivity>(
                     "id" to "${it.eventId}",
                     "idhome" to "${it.idHome}",
-                    "idaway" to "${it.idAway}"
+                    "idaway" to "${it.idAway}",
+                    "location" to "${teams[it.indexTeam!!.toInt()].teamStadiumLoc}"
             )
         }
 
@@ -54,11 +55,11 @@ class EventFragment : Fragment(), EventView {
         val request = ApiRepository()
         val gson = Gson()
 
-        presenter = EventPresenter(this, request, gson)
-        presenter.getEventList("4328", event)
+        presenter = SubscribedPresenter(this, request, gson)
+        presenter.getSubscribedList("4328", event)
 
         swipeRefresh.onRefresh {
-            presenter.getEventList("4328", event)
+            presenter.getSubscribedList("4328", event)
         }
 
         return view
@@ -78,7 +79,7 @@ class EventFragment : Fragment(), EventView {
         adapter.notifyDataSetChanged()
     }
 
-    override fun showEventList(data1: List<Event>, data2: List<AllTeam>) {
+    override fun showSubscribedList(data1: List<Event>, data2: List<AllTeam>) {
         swipeRefresh.isRefreshing = false
         events.clear()
         events.addAll(data1)
@@ -87,8 +88,8 @@ class EventFragment : Fragment(), EventView {
     }
 
     companion object {
-        fun newInstance(event: String?): EventFragment {
-            val fragment = EventFragment()
+        fun newInstance(event: String?): SubscribedFragment {
+            val fragment = SubscribedFragment()
             val args = Bundle()
 
             args.putString("event",event)
@@ -110,9 +111,9 @@ class EventFragment : Fragment(), EventView {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (TextUtils.isEmpty(newText)) {
-                    presenter.getEventList("4328", event)
+                    presenter.getSubscribedList("4328", event)
                 } else {
-                    presenter.getEventSearch(newText?.replace(" ", "_"))
+                    presenter.getSubscribedSearch(newText?.replace(" ", "_"))
                 }
 
                 return true
