@@ -1,7 +1,9 @@
 package com.bolasepak.detail.event
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -9,6 +11,7 @@ import com.bolasepak.BuildConfig
 import com.google.gson.Gson
 import com.bolasepak.R
 import com.bolasepak.api.ApiRepository
+import com.bolasepak.detail.team.TeamDetailActivity
 import com.bolasepak.model.AllTeam
 import com.bolasepak.model.EventDetail
 import com.bolasepak.util.invisible
@@ -193,6 +196,20 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
 
     private fun cleanString(pemain: String?): String? {
         return pemain?.replace("; ", "\n")
+    }
+
+    fun goToHomeTeamDetail(view: View){
+        val intent = Intent(this, TeamDetailActivity::class.java).apply {
+            putExtra("team_id", idHome)
+        }
+        startActivity(intent)
+    }
+
+    fun goToAwayTeamDetail(view: View){
+        val intent = Intent(this, TeamDetailActivity::class.java).apply {
+            putExtra("team_id", idAway)
+        }
+        startActivity(intent)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

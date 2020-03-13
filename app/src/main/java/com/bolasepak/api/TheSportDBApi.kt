@@ -24,10 +24,10 @@ object TheSportDBApi {
     }
 
     fun getNextEventbyID(teamId: String?): String{
-        return BuildConfig.TSDB_URL + "api/v1/json/${BuildConfig.TSDB_API_KEY}" + "/eventsnext.php?id=" + teamId
+        return "https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=$teamId"
     }
 
     fun getLastEventbyID(teamId: String?): String{
-        return BuildConfig.TSDB_URL + "api/v1/json/${BuildConfig.TSDB_API_KEY}" + "/eventslast.php?id=" + teamId
+        return "https://www.thesportsdb.com/api/v1/json/1/eventslast.php?id=$teamId"
     }
 }
