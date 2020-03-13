@@ -33,7 +33,6 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private var idHome: String = ""
     private var idAway: String = ""
-    private var location: String = ""
     val client = OkHttpClient()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,9 +50,6 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
         idEvent = intent.getStringExtra("id")
         idHome = intent.getStringExtra("idhome")
         idAway = intent.getStringExtra("idaway")
-        location = intent.getStringExtra("location")
-
-        var city = location.split(",")?.last().trim()
 
         val request = ApiRepository()
         val gson = Gson()
@@ -68,7 +64,6 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
         val logo = arrayOf(idHome, idAway)
 
         getBadge(logo)
-        getWeather(city)
     }
 
     override fun showLoading() {
@@ -105,6 +100,7 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
         away_formation.text = data1[0].formationAway
 
         stadium_name.text = data2[home].teamStadium + " Stadium - " + data2[home].teamStadiumLoc
+        var city = data2[home].teamStadiumLoc!!.split(",").last().trim()
         var stadium_img = data2[home].teamStadiumImg
         Picasso.get().load(stadium_img).into(img_stadium)
 
@@ -130,6 +126,8 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
         away_forward.text = cleanString(data1[0].forwAway)
         home_substitute.text = cleanString(data1[0].subsHome)
         away_substitute.text = cleanString(data1[0].subsAway)
+
+        getWeather(city)
     }
 
     private fun getBadge(logo: Array<String>) {
@@ -222,5 +220,3 @@ class EventDetailActivity : AppCompatActivity(), EventDetailView {
         }
     }
 }
-
-

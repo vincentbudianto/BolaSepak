@@ -3,8 +3,8 @@ package com.bolasepak.model
 import com.google.gson.annotations.SerializedName
 
 data class EventSearch(
-        var stepCounter: String? = null,
-        var stepComment: String? = null,
+        @SerializedName("idLeague")
+        var leagueId: String? = null,
 
         @SerializedName("idEvent")
         var eventId: String? = null,
@@ -47,7 +47,6 @@ data class EventSearch(
         var forwHome: String? = null,
 
         //Away Team
-
         @SerializedName("idAwayTeam")
         var idAway: String? = null,
 

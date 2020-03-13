@@ -1,4 +1,4 @@
-package com.bolasepak.event
+package com.bolasepak.subscribed
 
 import com.google.gson.Gson
 import com.bolasepak.api.ApiRepository
@@ -9,10 +9,10 @@ import com.bolasepak.model.EventSearchResponse
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
-class EventPresenter(private val view: EventView,
-                     private val apiRepository: ApiRepository,
-                     private val gson: Gson){
-    fun getEventList(league: String?, event: String?){
+class SubscribedPresenter(private val view: SubscribedView,
+                          private val apiRepository: ApiRepository,
+                          private val gson: Gson){
+    fun getSubscribedList(league: String?, event: String?){
         view.showLoading()
 
         doAsync {
@@ -25,19 +25,18 @@ class EventPresenter(private val view: EventView,
 
             uiThread {
                 view.hideLoading()
-                view.showEventList(data1.events.filter { it.leagueId == "4328" }, data2.teams)
+                view.showSubscribedList(data1.events, data2.teams)
             }
         }
     }
 
-    fun getEventSearch(name: String?){
+    fun getSubscribedSearch(name: String?){
         view.showLoading()
 
         doAsync {
             val data1 = gson.fromJson(apiRepository
                     .request(TheSportDBApi.getEventbyName(name)),
                     EventSearchResponse::class.java)
-
             val data2 = gson.fromJson(apiRepository
                 .request(TheSportDBApi.getAllTeam("4328")),
                 AllTeamResponse::class.java)
@@ -48,7 +47,7 @@ class EventPresenter(private val view: EventView,
                 if (data1.event.isNullOrEmpty()){
                     view.showNotFound()
                 } else {
-                    view.showEventList(data1.event.filter { it.leagueId == "4328" }, data2.teams)
+                    view.showSubscribedList(data1.event, data2.teams)
                 }
             }
         }

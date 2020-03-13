@@ -4,11 +4,15 @@ import com.bolasepak.BuildConfig
 
 object TheSportDBApi {
     fun getEvent(league: String?, event: String?): String{
-        return BuildConfig.TSDB_URL + "api/v1/json/${BuildConfig.TSDB_API_KEY}" + "/"+event+".php?id=" + league
+        return BuildConfig.TSDB_URL + "api/v1/json/${BuildConfig.TSDB_API_KEY}" + "/"+ event +".php?id=" + league
     }
 
-    fun getAllTeam(): String{
-        return BuildConfig.TSDB_URL + "api/v1/json/${BuildConfig.TSDB_API_KEY}" + "/search_all_teams.php?l=English%20Premier%20League"
+    fun getAllLeague(): String{
+        return BuildConfig.TSDB_URL + "api/v1/json/${BuildConfig.TSDB_API_KEY}" + "/all_leagues.php"
+    }
+
+    fun getAllTeam(teamId: String?): String{
+        return BuildConfig.TSDB_URL + "api/v1/json/${BuildConfig.TSDB_API_KEY}" + "/lookup_all_teams.php?id=" + teamId
     }
 
     fun getEventDetail(eventId: String?): String{
